@@ -1,0 +1,42 @@
+import pandas as pd
+stats = pd.read_csv("demo.csv")
+stats.head()
+stats.columns = ['CountryName','CountryCode','BirthRate','InternetUsers','IncomeGroup'] 
+stats.head()
+stats[stats.CountryName == 'Malta']
+subset = stats[::10]
+subset.head(12)
+subset.iat[10,0]
+subset.at[10,'CountryName']
+pip install seaborn
+import seaborn as sns
+import matplotlib as plt
+import warnings
+warnings.filterwarnings('ignore')
+plt.rcParams['figure.figsize'] = 120,7
+%matplotlib inline
+stats.head()
+vis1 = sns.distplot(stats['InternetUsers'])#, bins = 10) # bins are optional]
+stats.InternetUsers.head(8)
+import numpy as np
+exp = range(10, 50,20)
+exp
+sns.distplot(exp)
+vis2  = sns.boxplot(data = stats, x  = 'IncomeGroup', y = 'BirthRate')
+stats[ stats.IncomeGroup == 'High income']#outlier etected
+stats[ stats.IncomeGroup == 'Low income']
+
+
+vis2  = sns.boxplot(data = stats, x  = 'IncomeGroup', y = 'BirthRate')
+plt.rcParams['figure.figsize'] = 10,8
+
+plt.rcParams['figure.figsize'] = 10,8
+sns.lmplot(data = stats, x= 'InternetUsers', y = 'BirthRate',fit_reg = False)
+
+sns.lmplot(data = stats, x = 'InternetUsers', y = 'BirthRate', fit_reg = False, hue = 'IncomeGroup',size = 2)
+
+stats[ stats.IncomeGroup == 'Low income']
+
+sns.lmplot(data = stats, x = 'InternetUsers', y = 'BirthRate', fit_reg = False, hue = 'IncomeGroup',size = 10, scatter_kws = {'s':200})
+
+   
