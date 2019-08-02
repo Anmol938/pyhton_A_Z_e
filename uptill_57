@@ -1,0 +1,146 @@
+import pandas as pd
+movies = pd.read_csv("movie.csv")
+len(stats)
+movies.head()
+movies.columns = ['Film', 'Genre', 'CricticRatings', 'AudienceRatings', 'BudgetMillions', 'YearOfRelease' ]
+movies.head()
+movies.info()
+movies.describe()
+movies.Film = movies.Film.astype('category')
+movies.Genre = movies.Genre.astype('category')
+movies.YearOfRelease = movies.YearOfRelease.astype('category')
+movies.head()
+movies.info()
+movies.describe()
+movies.Genre.cat.categories
+movies.YearOfRelease.cat.categories
+movies.Film.cat.categories
+
+sns.lmplot(data = movies, y = 'CriticRatings',  x = 'AudienceRatings', size = 10,fit_reg = True,hue = 'Genre',scatter_kws = {'s':200}  )
+
+movies.head()
+Genre_comedy_movies =  ( (movies[movies.Genre == 'Comedy']) & (movies[movies.YearOfRelease == 2009] ) )
+Genre_comedy_movies.head()
+
+sns.jointplot(data = movies,  x = 'CricticRatings', y = 'AudienceRatings', size = 10)
+sns.jointplot(data = movies,  x = 'CricticRatings', y = 'AudienceRatings', kind = 'hex',size = 10)#kind must be either 'scatter', 'reg', 'resid', 'kde', or 'hex'
+
+plt.rcParams['figure.figsize'] = 10,8
+sns.distplot(movies.CriticRatings)
+sns.distplot(movies.CriticRatings, bins = 15)
+
+#sns.set_style('white')
+sns.set_style('darkgrid')
+plt.rcParams['figure.figsize'] = 10,8
+plt.hist(movies.CriticRatings, bins = 15)
+print("hello")
+plt.hist(movies.AudienceRatings, bins = 15)
+
+
+
+sns.lmplot(data = movies, x = 'CriticRatings', y = 'AudienceRatings', hue = 'Genre' ,size = 10,aspect = 2)
+sns.lmplot(data = movies, x = 'CriticRatings', y = 'AudienceRatings', hue = 'Genre' ,size = 10          )
+
+
+# overlapping two plots
+sns.kdeplot(movies.CriticRatings, movies.AudienceRatings,  shade_lowest=True )
+sns.kdeplot(movies.CriticRatings, movies.AudienceRatings, shade = True, shade_lowest=True, cmap = 'Reds' )
+
+sns.kdeplot(movies.CriticRatings, movies.AudienceRatings,  shade_lowest=True , cmap = 'Reds')
+sns.kdeplot(movies.CriticRatings, movies.AudienceRatings, shade = True, shade_lowest=True, cmap = 'Reds' )
+
+
+#------------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+sns.boxplot(data = movies, x = "Genre" , y = "AudienceRatings")
+sns.violinplot(data = movies, x = "Genre", y = "AudienceRatings")
+sns.boxplot(data = movies, x = "Genre" , y = "AudienceRatings")
+sns.boxplot(data = movies[movies.Genre == "Drama"], x = "YearOfRelease", y = "CriticRatings")
+sns.violinplot(data = movies[movies.Genre == "Drama"], x = "YearOfRelease", y = "CriticRatings")
+
+
+
+plt.rcParams['figure.figsize'] = 10,8
+f, axes = plt.subplots(2,2, figsize = (20,20))
+sns.kdeplot( movies.BudgetMillions, movies.CriticRatings, shade = True, ax = axes[0][0])
+sns.kdeplot( movies.BudgetMillions, movies.CriticRatings, ax = axes[0][1])
+sns.violinplot(data = movies[movies.Genre == "Drama"], x = "YearOfRelease", y = "CriticRatings", ax = axes[1,0])
+sns.boxplot(data = movies[movies.Genre == "Drama"], x = "YearOfRelease", y = "CriticRatings", ax = axes[1][1])
+k1.set( xlim = (-20, 160) )
+
+
+
+g = sns.FacetGrid(movies,  row = 'Genre', col = 'YearOfRelease',hue = 'Genre')
+kws = dict(s = 50, linewidth = 0.5, edgecolor = 'black')
+g = g.map(plt.scatter, 'CriticRatings', 'AudienceRatings',**kws)
+
+
+m = sns.FacetGrid(movies, row = 'Genre', col = 'YearOfRelease', hue = 'Genre')
+m = m.map(plt.hist, 'BudgetMillions')
+
+
+#-------------------------------
+
+
+g = sns.FacetGrid(movies, row = 'Genre', col = 'YearOfRelease', hue = 'Genre')
+kws = dict(s = 50, linewidth = 0.5, edgecolor = 'black')
+g = g.map(plt.scatter, 'CriticRatings', 'AudienceRatings', **kws)
+
+#m = g.map(plt.hist, 'BudgetMillions')
+g.set(xlim=(0,100), ylim  = (0,100))
+# g.set(ylim=(0,100))
+for ax in g.axes.flat:
+    ax.plot( (0,100) , (0,100), c = 'red', ls = "--" )
+    
+g.add_legend()    
+    
+
+
+#----------------------------------------# this doesn't work while using matplot lib
+#plt.rcParams['figure.figsize'] = 10,15
+
+#g, axes = plt.subplots(3,3)
+#sns.boxplot(  data = movies[movies.Genre == "Comedy"], x = "YearOfRelease", y = "AudienceRatings" ,  ax = axes[0][0])
+#plt.scatter(movies.CriticRatings, movies.AudienceRatings, ax = axes[0][1])
+
+#---------------------------------------------->>>>>>>>> now it work for the above issue
+sns.set_style('dark', axes.color('black'))
+f, axes = plt.subplots(2,2, figsize = (12,10))
+
+sns.violinplot(data = movies, x = 'Genre', y = 'YearOfRelease',ax = axes[0,0])
+sns.boxplot(data = movies, x = 'Genre', y = 'YearOfRelease',ax = axes[0,1])
+sns.kdeplot(movies.CriticRatings, movies.AudienceRatings, ax = axes[1,0], shade = True,cmap = 'Reds')
+sns.kdeplot(movies.CriticRatings, movies.AudienceRatings, ax = axes[1,0],cmap = 'Reds')
+axes[1,1].hist(movies.BudgetMillions)
+
+
+#-----------.........................------------------------.......................-------------------.................------------.->>>>
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+movies =  pd.read_csv("movies.csv")
+movies.head()
+movies.columns = ["Film", "Genre", "CriticRatings", "AudienceRatings", "BudgetMillions", "YearOfRelease"]
+movies.head()
+
+
+
+movies.info()
+plt.rcParams['figure.figsize'] = 10,10
+list1 = list()
+sns.set_style("whitegrid")
+myLabels = list()
+for gen in  movies.Genre.cat.categories:
+    list1.append(movies[movies.Genre == gen].BudgetMillions)
+    myLabels.append(gen)
+plt.hist(list1, label = myLabels, stacked = True, bins = 15, rwidth = 1)
+plt.legend(prop = {'size':18}, shadow = True)
+plt.title("Movie Budget Distribution", fontsize = 25, color = 'darkblue')
+plt.xlabel("Budget", fontsize = 18, color = "Green")
+plt.ylabel("Numbe of movies", fontsize = 18, color = "Red" )
+plt.xticks(fontsize = 18)
+plt.yticks(fontsize = 18)
+
+plt.show()
