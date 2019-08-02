@@ -1,0 +1,53 @@
+import pandas as pd
+pip install seaborn
+data = pd.read_csv("athlete_events.csv")
+import seaborn as sns
+data.head()
+data.info()
+data.City  = data.City.astype('category')	
+data.City.cat.categories
+data.Medal = data.Medal.astype("category")
+sns.scatterplot(x = data.Height, y = data.Weight,hue = data.Medal)
+data.Medal.cat.categories
+len(data[ data.Medal != 'NaN'])
+len(data)
+data_1 = data[ (data.Medal == 'Gold') | (data.Medal == 'Silver') | (data.Medal == 'Bronze')]
+len(data_1)
+
+import matplotlib.pyplot as plt
+plt.rcParams['figure.figsize'] = 15,15
+sns.scatterplot( x = data_1.Height, y = data_1.Weight, hue = data_1.Medal )
+import warnings 
+warnings.filterwarnings('ignore')
+sns.lmplot(data = data_1, y = "Weight", x = "Height", size = 10, hue  = 'Medal')
+# for gold medals only
+
+sns.lmplot(data = data_1[data_1.Medal == 'Gold'], x = 'Height', y = 'Weight', hue = 'Medal' ,size = 10 )
+sns.lmplot(data = data_1[data_1.Medal == 'Silver'], x = 'Height', y = 'Weight', hue = 'Medal' ,size = 10 )
+sns.lmplot(data = data_1[data_1.Medal == 'Bronze'], x = 'Height', y = 'Weight', hue = 'Medal' ,size = 10 )
+sns.lmplot(data = data_1[data_1.Medal == 'Gold'], x = 'Height', y = 'Weight', hue = 'Sex' ,size = 10 )
+   len(  data[(data.Medal == 'Silver') & (data.Sex == 'M')] )
+   len(  data[(data.Medal == 'Gold') & (data.Sex == 'M')] )
+   len(  data[(data.Medal == 'Bronze') & (data.Sex == 'M')] )
+   len(  data[(data.Medal == 'Silver') & (data.Sex == 'F')] )
+   len(  data[(data.Medal == 'Gold') & (data.Sex == 'F')] )
+   len(  data[(data.Medal == 'Bronze') & (data.Sex == 'F')] )
+
+data_1.info()
+
+data_2 = data_1.dropna()
+data_2.Sport
+
+
+#Atheltic sport type
+fig, axes = plt.subplots(3,3, figsize =(18,18))
+sns.distplot(data_2.Height[  (data_2.Medal == 'Gold')  & (data_2.Sport == 'Athletics') ] , ax = axes[0][0])
+sns.distplot(data_2.Height[   (data_2.Medal == 'Silver')  & (data_2.Sport == 'Athletics')  ], ax = axes[0][1])
+sns.distplot(data_2.Height[   (data_2.Medal == 'Bronze')  & (data_2.Sport == 'Athletics')  ], ax = axes[0][2])
+#Gymnastics sport type
+sns.distplot(data_2.Height[   (data_2.Medal == 'Gold')  & (data_2.Sport == 'Gymnastics')  ], ax = axes[1][0])
+sns.distplot(data_2.Height[   (data_2.Medal == 'Silver')  & (data_2.Sport == 'Gymnastics')  ], ax = axes[1][1])
+sns.distplot(data_2.Height[   (data_2.Medal == 'Bronze')  & (data_2.Sport == 'Gymnastics')  ], ax = axes[1][2])
+# medal gold and season summer
+sns.distplot(  data_2.Age[ (data_2.Medal == 'Gold') & (data_2.Season == 'Winter')], ax = axes[2][0] )
+sns.distplot(  data_2.Age[ (data_2.Medal == 'Gold') & (data_2.Season == 'Summer')], ax = axes[2][1])
