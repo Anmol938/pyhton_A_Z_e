@@ -1,0 +1,35 @@
+import pandas as pd
+
+pip install seaborn
+import seaborn as sns
+data = pd.read_csv("Iris.csv")
+data.head()
+data.info()
+data.describe()
+data.head()
+import matplotlib.pyplot as plt
+plt.rcParams['figure.figsize'] = 12,12
+sns.scatterplot( x = data.SepalLengthCm, y = data.SepalWidthCm, hue = data.Species, s = 150)
+sns.scatterplot(  x = data.SepalLengthCm[data.Species == "Iris-setosa"], \
+                y = data.SepalWidthCm[data.Species == "Iris-setosa"],  s = 150   )
+sns.scatterplot(  x = data.SepalLengthCm[data.Species == "Iris-versicolor"], \
+                y = data.SepalWidthCm[data.Species == "Iris-versicolor"],  s = 150   )
+sns.scatterplot(  x = data.SepalLengthCm[data.Species == "Iris-virginica"], \
+                y = data.SepalWidthCm[data.Species == "Iris-virginica"],  s = 150   )
+data.head()
+plt.rcParams['figure.figsize'] = 10,8
+sns.scatterplot(  x = data.PetalLengthCm,  y = data.PetalWidthCm,  s = 150 , hue = data.Species  )
+data.head()
+sns.scatterplot(x = data.SepalLengthCm, y = data.PetalLengthCm, hue = data.Species, s = 100)
+data.info()
+data.describe()
+data.head()
+sns.scatterplot( y = data.SepalWidthCm, x = data.SepalLengthCm, hue = data.Species, s = 100 )
+sns.scatterplot( y = data.PetalWidthCm, x = data.PetalLengthCm, hue = data.Species, s = 100 )
+f, axes = plt.subplots(2,2, figsize = (20,18))
+sns.boxplot( x = data.Species, y = data.SepalLengthCm, ax =axes[0,0])
+sns.boxplot( x = data.Species, y = data.PetalLengthCm, ax =axes[0,1])
+sns.boxplot( x = data.Species, y = data.SepalWidthCm, ax =axes[1,0])
+sns.boxplot( x = data.Species, y = data.PetalWidthCm, ax =axes[1,1])
+
+
