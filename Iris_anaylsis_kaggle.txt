@@ -32,4 +32,9 @@ sns.boxplot( x = data.Species, y = data.PetalLengthCm, ax =axes[0,1])
 sns.boxplot( x = data.Species, y = data.SepalWidthCm, ax =axes[1,0])
 sns.boxplot( x = data.Species, y = data.PetalWidthCm, ax =axes[1,1])
 
+sns.lmplot( data = data,x = 'SepalLengthCm', y = 'SepalWidthCm' , hue = 'Species', size = 10 )
+sns.lmplot( data = data,x = 'PetalLengthCm', y = 'PetalWidthCm' , hue = 'Species', size = 10 )
+
+sns.lmplot( data = data,x = 'SepalLengthCm', y = 'PetalLengthCm' , hue = 'Species', size = 10 )
+sns.lmplot( data = data,x = 'SepalWidthCm', y = 'PetalWidthCm' , hue = 'Species', size = 10 )
 
