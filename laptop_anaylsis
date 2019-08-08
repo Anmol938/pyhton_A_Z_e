@@ -1,0 +1,32 @@
+pip install seaborn
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+data =  pd.read_csv('Final_Dataframe.csv')
+data.head()
+data.info()
+data.head()
+ratings_5max_1 = []
+for index in range(len(data)):
+    temp = data.ratings_5max[index]
+    #print(temp )
+    #print(  type( temp) )
+    data.ratings_5max[index] = temp.replace(" / 5","")
+data.info()
+data.head()
+type(data.ratings_5max)
+data.dtypes
+data.ratings_5max
+data['ratings_5max'] = data['ratings_5max'].astype(float).astype(int)
+data.head()
+plt.rcParams['figure.figsize'] = 15,15
+data.head()
+sns.distplot(data.old_price-data.discount_price)
+sns.scatterplot(x = data.discount_price, y = data.old_price, hue = data.brand, s = 150)
+data.brand = data.brand.astype('category')
+data.brand.cat.categories
+data.graphics_card = data.graphics_card.astype('category')
+data.graphics_card.cat.categories
+data.info()
+sns.scatterplot(  x = data.old_price, y = data.discount_price, hue = data.ratings_5max,s = 250 )
+sns.scatterplot(  x = data.old_price, y = data.disk_space, hue = data.ratings_5max,s = 250 )
